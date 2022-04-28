@@ -16,31 +16,31 @@
                     </div>
                     <div class="col-md-6 col-12 py-2">
                         <label for=""><b>Name</b></label>
-                        <input type="text" placeholder="Name" class="form-control mt-1">
+                        <input type="text" value="{{ isset($user->name) ? $user->name : '' }}" placeholder="Name" class="form-control mt-1">
                     </div>
                     <div class="col-md-6 col-12 py-2">
                         <label for=""><b>Email</b></label>
-                        <input type="email" placeholder="Email" class="form-control mt-1">
+                        <input type="email" value="{{ isset($user->email) ? $user->email : '' }}" placeholder="Email" class="form-control mt-1">
                     </div>
                     <div class="col-md-6 col-12 py-2">
                         <label for=""><b>Number</b></label>
-                        <input type="text" placeholder="Number" class="form-control mt-1">
+                        <input type="text" value="{{ isset($user->phone) ? $user->phone : '' }}" placeholder="Number" class="form-control mt-1">
                     </div>
                     <div class="col-md-6 col-12 py-2">
                         <label for=""><b>Billing Address</b></label>
-                        <input type="text" placeholder="Billing Address" class="form-control mt-1">
+                        <input type="text" value="{{ isset($user->billing_address) ? $user->billing_address : '' }}" placeholder="Billing Address" class="form-control mt-1">
                     </div>
-                    <div class="col-md-6 col-12 py-2">
+                    <!-- <div class="col-md-6 col-12 py-2">
                         <label for=""><b>New Password</b></label>
-                        <input type="password" placeholder="Password" class="form-control mt-1">
+                        <input type="password"  placeholder="Password" class="form-control mt-1">
                     </div>
                     <div class="col-md-6 col-12 py-2">
                         <label for=""><b>Confirm Password</b></label>
                         <input type="password" placeholder="Password" class="form-control mt-1">
-                    </div>
+                    </div> -->
                     <div class="col-12 py-2">
                         <label for=""><b>Billing Information</b></label>
-                        <textarea name="" id="" class="form-control mt-1" rows="3" placeholder="Billing Information"></textarea>
+                        <textarea name="" id="" value="{{ isset($user->name) ? $user->name : '' }}" class="form-control mt-1" rows="3" placeholder="Billing Information"></textarea>
 
                     </div>
                     <div class="col-12 py-3">

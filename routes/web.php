@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [LicenseController::class, "index"]);
+
+
+
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 
 Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function () {
@@ -29,10 +33,8 @@ Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function ()
         return view('Admin.users',compact('users'));
     });
 
-    Route::get('/edituser', function () {
-        return view('Admin.edituser');
-    });
-
+    Route::get('/edituser', [UserController::class, "editUser"])->name("editUser");
+    
     Route::get('/assets', function () {
         return view('Admin.assets');
     });
@@ -42,6 +44,13 @@ Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function ()
     });
 
 
+});
+
+Route::post("/license-save", [LicenseController::class, "LicenseSave"])->name("license");
+Route::get('license-delete', [LicenseController::class, "delLicense"])->name("license-del");
+Route::post('license-update', [LicenseController::class, "updateLicense"])->name("update");
+
+Route::prefix("/user")->middleware(['SessionCheck', 'auth'])->group(function(){
 });
 
 Auth::routes();
