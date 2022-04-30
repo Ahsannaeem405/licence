@@ -57,7 +57,7 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
             ->get();
 
             // return $license;
-            $emptyArray = []; 
+            $emptyArray = [];
 
             foreach($license as $li){
                $exp =  $li->expiry;
@@ -66,18 +66,19 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
             $aaaj = new DateTime($aaj);
             $interval = $expDate->diff($aaaj);
             $remaining_days = $interval->format('%a');
-            // echo $remaining_days; echo " --- ".$aaj." --- ".$exp." ---- "; 
+            // echo $remaining_days; echo " --- ".$aaj." --- ".$exp." ---- ";
             if($remaining_days<30){
                 $emptyArray[] = $li;
             }
             }
             // dd($emptyArray);
+            // print_r($license); exit;
             $return = [
                 "license" => $license,
                 "expired" => $expired,
                 "soon" => $emptyArray
             ];
-        
+
             return view('welcome', $return);
         }else{
             return view('auth.login');
@@ -85,6 +86,8 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
     }
 
     public function LicenseSave(Request $request){
+        // dd($request);
+
         $imageN=[];
         if($request->hasfile('file'))
         {
@@ -92,8 +95,8 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
            foreach($request->file('file') as $file)
            {
             //    $name=$file->getClientOriginalName();
-            //    $file->move(public_path().'/files/', $name);  
-            //    $data[] = $name;  
+            //    $file->move(public_path().'/files/', $name);
+            //    $data[] = $name;
 
                $extenssion = $file->getClientOriginalExtension();
             $name = "img-".Auth::user()->id . "-". rand() . "-" . Carbon::now()->format("Ymd") . "." . $extenssion;
@@ -103,8 +106,8 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
            }
         }
         // print_r($imageName); exit;
-        $imageName = json_encode($imageN);   
-        
+        $imageName = json_encode($imageN);
+
         $data = new License;
         $data->name = $request->name;
         $data->detail = $request->detail;
