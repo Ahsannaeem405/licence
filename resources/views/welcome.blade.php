@@ -89,10 +89,18 @@
                                             @php
                                             $docs = json_decode($show->document)
                                             @endphp
+                                            @php
+                                                $x=1;
+                                            @endphp
                                             @foreach($docs as $imgs)
-                                          <div class="carousel-item active">
+                                          <div class="carousel-item @if ($x==1)
+                                              active
+                                          @endif">
                                             <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
                                           </div>
+                                          @php
+                                              $x++;
+                                          @endphp
                                           @endforeach
                                           <!-- <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
@@ -152,9 +160,22 @@
 
                     <div id="carouselExampleControls4" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                          <div class="carousel-item active">
+                            @php
+                                            $docs = json_decode($show->document)
+                                            @endphp
+                            @foreach($docs as $imgs)
+                            <div class="carousel-item @if ($x==1)
+                                active
+                            @endif">
+                                <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
+                            </div>
+                            @php
+                                $x++;
+                            @endphp
+                            @endforeach
+                          {{-- <div class="carousel-item active">
                             <img src="{{asset('uploads/'.$show->document)}}" class="d-block w-100" alt="...">
-                          </div>
+                          </div> --}}
                           <!-- <div class="carousel-item">
                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                           </div>
@@ -238,7 +259,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 1 - 4</h2>
                                             </div>
-                                        </div> <label class="fieldlabels">License Name: *</label> 
+                                        </div> <label class="fieldlabels">License Name: *</label>
                                         <input type="text" name="name" value="{{$show->name}}"  id="license_name" placeholder="License/Certificate Name" />
                                     </div> <input type="button" id="next1" name="next" class="next action-button" value="Next" />
                                 </fieldset>
@@ -251,7 +272,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 2 - 4</h2>
                                             </div>
-                                        </div> <label class="fieldlabels">Detail: *</label> 
+                                        </div> <label class="fieldlabels">Detail: *</label>
                                         <textarea name="detail" value="" id="license_detail" class="form-control" rows="5" placeholder="Enter Detail of Certificate">{{$show->detail}}</textarea>
                                         <label for="license_expiry" class="fieldlabels">License Expiry *</label>
                                         <input type="date" name="expiry" value="{{$show->expiry}}" id="license_expiry" >
@@ -261,14 +282,25 @@
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-card">
-                                        <div class="row">
+                                        <div class="row image_div">
                                             <div class="col-7">
                                                 <h2 class="fs-title">Image Upload:</h2>
                                             </div>
                                             <div class="col-5">
                                                 <h2 class="steps">Step 3 - 4</h2>
                                             </div>
-                                        </div>   <input name="file" id="license_file" type="file"  class="dropify" data-height="100"  />
+                                            <div class="col-12">
+                                                <button class="btn btn-primary float-end add_image" type="button" id="add_image">Add Image</button>
+                                            </div>
+                                            <div class="col-6 mt-2">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="button" class="btn float-end my-3 visibility_none"><i class="fas fa-trash text-danger"></i></button>
+                                                    </div>
+                                                </div>
+                                                <input name="file[]" id="license_file" type="file" class="dropify" data-height="100"  />
+                                            </div>
+                                        {{-- </div>   <input name="file" id="license_file" type="file"  class="dropify" data-height="100"  /> --}}
                                     </div> <input type="submit" id="finish" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                                 </fieldset>
                                 <fieldset>
@@ -405,7 +437,7 @@
                             <!-- end update model -->
                         @endforeach
 
-                        
+
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             @foreach($soon as $expSoon)
@@ -440,7 +472,7 @@
                                 </div>
                                 <div class="col-md-8 col-12 mt-3 p-md-5 d-flex align-items-center justify-content-around">
 
-                               
+
                                     <div class="p-2">
                                     <h1>
   <span href="" class="typewrite text-danger bold shadow shadow-lg" data-period="2000" data-type='[ "Expriring Soon", "Expriring Soon", "Expriring Soon", "Expriring Soon" ]'>
@@ -463,13 +495,13 @@
                                             <button class="btn btn-danger mt-4 w-100 delete"><i class="fas fa-trash"></i> Delete</button>
 
                                         </div> -->
-                                        
+
 
 
                                 </div>
                             </div>
                             @endforeach
-                            
+
                         </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
@@ -482,9 +514,20 @@
                                     </div> --}}
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
-                                          <div class="carousel-item active">
+                                            @php
+                                                $x=0;
+                                            @endphp
+                                            @foreach($output->document as $imgs)
+                                            <div class="carousel-item ">
+                                              <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
+                                            </div>
+                                            @endforeach
+                                          {{-- <div class="carousel-item active">
                                             <img src="{{asset('uploads/'.$output->document)}}" class="d-block w-100" alt="...">
-                                          </div>
+                                          </div> --}}
+
+
+
                                           <!-- <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                                           </div>
@@ -631,7 +674,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 1 - 4</h2>
                                             </div>
-                                        </div> <label class="fieldlabels">License Name: *</label> 
+                                        </div> <label class="fieldlabels">License Name: *</label>
                                         <input type="text" name="name" value="{{$output->name}}"  id="license_name" placeholder="License/Certificate Name" />
                                     </div> <input type="button" id="next1" name="next" class="next action-button" value="Next" />
                                 </fieldset>
@@ -644,7 +687,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 2 - 4</h2>
                                             </div>
-                                        </div> <label class="fieldlabels">Detail: *</label> 
+                                        </div> <label class="fieldlabels">Detail: *</label>
                                         <textarea name="detail" value="" id="license_detail" class="form-control" rows="5" placeholder="Enter Detail of Certificate">{{$output->detail}}</textarea>
                                         <label for="license_expiry" class="fieldlabels">License Expiry *</label>
                                         <input type="date" name="expiry" value="{{$output->expiry}}" id="license_expiry" >
@@ -654,14 +697,26 @@
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-card">
-                                        <div class="row">
+                                        <div class="row image_div">
                                             <div class="col-7">
                                                 <h2 class="fs-title">Image Upload:</h2>
                                             </div>
                                             <div class="col-5">
                                                 <h2 class="steps">Step 3 - 4</h2>
                                             </div>
-                                        </div>   <input name="file" id="license_file" type="file"  class="dropify" data-height="100"  />
+                                            <div class="col-12">
+                                                <button class="btn btn-primary float-end add_image" type="button" id="add_image">Add Image</button>
+                                            </div>
+                                            <div class="col-6 mt-2">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="button" class="btn float-end my-3 visibility_none"><i class="fas fa-trash text-danger"></i></button>
+                                                    </div>
+                                                </div>
+                                                <input name="file[]" id="license_file" type="file" class="dropify" data-height="100"  />
+                                            </div>
+                                        </div>
+                                        {{-- <input name="file" id="license_file" type="file"  class="dropify" data-height="100"  /> --}}
                                     </div> <input type="submit" id="finish" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                                 </fieldset>
                                 <fieldset>
@@ -865,7 +920,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 1 - 4</h2>
                                             </div>
-                                        </div> <label class="fieldlabels">License Name: *</label> 
+                                        </div> <label class="fieldlabels">License Name: *</label>
                                         <input type="text" name="name"  id="license_name" placeholder="License/Certificate Name" />
                                     </div> <input type="button" id="next1" name="next" class="next action-button" value="Next" />
                                 </fieldset>
@@ -878,7 +933,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 2 - 4</h2>
                                             </div>
-                                        </div> <label class="fieldlabels">Detail: *</label> 
+                                        </div> <label class="fieldlabels">Detail: *</label>
                                         <textarea name="detail" id="license_detail" class="form-control" rows="5" placeholder="Enter Detail of Certificate"></textarea>
                                         <label for="license_expiry" class="fieldlabels">License Expiry *</label>
                                         <input type="date" name="expiry" id="license_expiry" >
@@ -887,14 +942,25 @@
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-card">
-                                        <div class="row">
+                                        <div class="row image_div">
                                             <div class="col-7">
                                                 <h2 class="fs-title">Image Upload:</h2>
                                             </div>
                                             <div class="col-5">
                                                 <h2 class="steps">Step 3 - 4</h2>
                                             </div>
-                                        </div>   <input name="file[]" id="license_file" type="file" multiple   class="" data-height="100"  />
+                                            <div class="col-12">
+                                                <button class="btn btn-primary float-end add_image" type="button" id="add_image">Add Image</button>
+                                            </div>
+                                            <div class="col-6 mt-2">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="button" class="btn float-end my-3 visibility_none"><i class="fas fa-trash text-danger"></i></button>
+                                                    </div>
+                                                </div>
+                                                <input name="file[]" id="license_file" type="file" class="dropify" data-height="100"  />
+                                            </div>
+                                        {{-- </div>   <input name="file[]" id="license_file" type="file" multiple   class="dropify" data-height="100"  /> --}}
                                     </div> <input type="submit" id="finish" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                                 </fieldset>
                                 <fieldset>
@@ -1041,12 +1107,31 @@
 @section("custom-js")
 <script>
     $(document).ready(function(){
-        // alert("helo")
-        // $("#next1").on("click", function(){
-        //     alert("clicked");
-        //     $("#msform").submit();
-        // })
-    })
+        $(document).on('click', '.del', function() {
+            $(this).closest( ".drop_div" ).remove();
+
+        $(this).closest('#removeTr').remove();
+    });
+//         $( ".del" ).click(function() {
+//   alert( "Handler for .click() called." );
+
+//     $(this).closest( ".drop_div" ).remove();
+// });
+
+        $( ".add_image" ).click(function() {
+
+
+            $('.image_div').append(`  <div class="col-6 mt-2 drop_div">
+                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="button" class="btn float-end my-3 del"><i class="fas fa-trash text-danger"></i></button>
+                                                    </div>
+                                                </div>
+                                                <input name="file[]" id="license_file" type="file" class="dropify" data-height="100"  />
+                                            </div>`);
+                                            $('.dropify').dropify();
+});
+    });
 
     //made by vipul mirajkar thevipulm.appspot.com
 var TxtType = function(el, toRotate, period) {
