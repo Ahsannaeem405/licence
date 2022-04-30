@@ -9,33 +9,17 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="dataTables_length" id="dataTable_length"><label>Show <select
-                                            name="dataTable_length" aria-controls="dataTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
-                                            class="form-control form-control-sm" placeholder=""
-                                            aria-controls="dataTable"></label></div>
-                            </div>
-                        </div>
+                       
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                                <table class="table table-bordered dataTable" id="myTable" width="100%" cellspacing="0"
                                     role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1" colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending" style="width: 179px;">
-                                                No</th>
+                                                #</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
                                                 style="width: 274px;">Certificate Name</th>
@@ -49,7 +33,7 @@
                                                 style="width: 109px;">Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr>
                                             <th rowspan="1" colspan="1">No</th>
                                             <th rowspan="1" colspan="1">Certificate Name</th>
@@ -58,68 +42,81 @@
 
                                             <th rowspan="1" colspan="1">Action</th>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> -->
                                     <tbody>
+                                        @foreach($allLicense as $output)
                                         <tr class="odd">
-                                            <td class="sorting_1">1</td>
-                                            <td>Driving</td>
-                                            <td> <img src="{{asset('img/license.jpg')}}" width="100" class="rounded" alt=""></td>
+                                            <td class="sorting_1">{{ $loop->iteration }}</td>
+                                            <td>{{$output->name}}</td>
+                                            <td> 
+                                                <a href="{{ asset('uploads/'.$output->document) }}">
+                                                <img src="{{asset('uploads/'.$output->document)}}" width="100" class="rounded" alt="">
+                                                </a>
+                                            </td>
 
                                             <td>
-                                                <a href="{{url('admin/edituser')}}" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">View Assets</a>
+                                                <a href="" class="btn btn-primary"  data-toggle="modal" data-target="#assetModal{{$output->id}}">View Assets</a>
 
 
-                                                {{-- <button class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
+                                               
                                             </td>
                                         </tr>
-                                        <tr class="even">
-                                            <td class="sorting_1">2</td>
-                                            <td>Driving</td>
-                                            <td> <img src="{{asset('img/license.jpg')}}" width="100" class="rounded" alt=""></td>
+                                         <!-- Modal -->
+<div class="modal fade" id="assetModal{{$output->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Assets</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-12 text-center">
+                <h4>License Detail</h4>
+              </div>
+              <div class="col-12 text-center">
+                    <img src="{{asset('uploads/'.$output->document)}}" width="60%" class="rounded" alt="">
+                    <a href="{{asset('uploads/'.$output->document)}}" class="float-right" download>Download</a>
+              </div>
+              <div class="col-md-6 col-12 pt-2">
+                  <label for=""><b>Name</b></label>
+                  <h6>{{$userInfo->name}}</h6>
+              </div>
+              <!-- <div class="col-md-6 col-12 pt-2">
+                <label for=""><b>Issue date</b></label>
+                <h6>16/02/2019</h6>
 
+              </div> -->
+              <div class="col-md-6 col-12 pt-2">
+                <label for=""><b>Expire date</b></label>
+                <h6>{{$output->expiry}}</h6>
 
-                                            <td>
-                                                <a href="{{url('admin/edituser')}}" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">View Assets</a>
+              </div>
+              <!-- <div class="col-md-6 col-12 pt-2">
+                <label for=""><b>Blood Group</b></label><br>
+                <b class="text-danger">A+</b>
 
-
-                                                {{-- <button class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
-                                            </td>                                        </tr>
-
+              </div> -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end Model -->
+                                        @endforeach
 
                                     </tbody>
-                                </table>
+                                  
+                                </table> 
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1
-                                    to 10 of 57 entries</div>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a
-                                                href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable"
-                                                data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-                                                data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-                                                data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-                                                data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-                                                data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
-                                                data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                        <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-                                                aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -176,3 +173,12 @@
     </div>
   </div>
 @endsection
+
+@section("custom-js")
+    <script>
+        $(document).ready( function () {
+            // alert("helo")
+            $('#myTable').DataTable();
+        } );
+    </script>
+    @endsection

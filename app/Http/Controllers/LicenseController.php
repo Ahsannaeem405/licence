@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\License;
 use Session;
+use DateTime;
 
 class LicenseController extends Controller
 {
@@ -44,6 +45,7 @@ class LicenseController extends Controller
     public function index(){
         if(Auth::check()){
             $today = Carbon::today();
+            $aaj =  $today->format("Y-m-d");
 $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("id","desc")
 ->where("user_id", Auth::user()->id)
 ->get();
@@ -53,10 +55,27 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
             $license = License::whereDate('expiry', '>', $today->format('Y-m-d'))->orderBy("id","desc")
             ->where("user_id", Auth::user()->id)
             ->get();
-            // $total = $license->count();
+
+            // return $license;
+            $emptyArray = []; 
+
+            foreach($license as $li){
+               $exp =  $li->expiry;
+            //    echo $exp;
+            $expDate = new DateTime($exp);
+            $aaaj = new DateTime($aaj);
+            $interval = $expDate->diff($aaaj);
+            $remaining_days = $interval->format('%a');
+            // echo $remaining_days; echo " --- ".$aaj." --- ".$exp." ---- "; 
+            if($remaining_days<30){
+                $emptyArray[] = $li;
+            }
+            }
+            // dd($emptyArray);
             $return = [
                 "license" => $license,
-                "expired" => $expired
+                "expired" => $expired,
+                "soon" => $emptyArray
             ];
         
             return view('welcome', $return);
@@ -66,13 +85,26 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
     }
 
     public function LicenseSave(Request $request){
-        // return $request->file;
-        if(!empty($request->file)){
-            $extenssion = $request->file->getClientOriginalExtension();
-            $imageName = "img-".Auth::user()->id . "-". rand() . "-" . Carbon::now()->format("Ymd") . "." . $extenssion;
-            $path = public_path('uploads');
-            $request->file->move($path, $imageName);
+        $imageN=[];
+        if($request->hasfile('file'))
+        {
+
+           foreach($request->file('file') as $file)
+           {
+            //    $name=$file->getClientOriginalName();
+            //    $file->move(public_path().'/files/', $name);  
+            //    $data[] = $name;  
+
+               $extenssion = $file->getClientOriginalExtension();
+            $name = "img-".Auth::user()->id . "-". rand() . "-" . Carbon::now()->format("Ymd") . "." . $extenssion;
+            $path = public_path('uploadFile');
+            $file->move($path, $name);
+            $imageN[] = $name;
+           }
         }
+        // print_r($imageName); exit;
+        $imageName = json_encode($imageN);   
+        
         $data = new License;
         $data->name = $request->name;
         $data->detail = $request->detail;

@@ -86,15 +86,20 @@
                                     </div> --}}
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
+                                            @php
+                                            $docs = json_decode($show->document)
+                                            @endphp
+                                            @foreach($docs as $imgs)
                                           <div class="carousel-item active">
-                                            <img src="{{asset('uploads/'.$show->document)}}" class="d-block w-100" alt="...">
+                                            <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
                                           </div>
-                                          <div class="carousel-item">
+                                          @endforeach
+                                          <!-- <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                                           </div>
                                           <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
+                                          </div> -->
                                         </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -150,12 +155,12 @@
                           <div class="carousel-item active">
                             <img src="{{asset('uploads/'.$show->document)}}" class="d-block w-100" alt="...">
                           </div>
-                          <div class="carousel-item">
+                          <!-- <div class="carousel-item">
                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                           </div>
                           <div class="carousel-item">
                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                          </div>
+                          </div> -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -360,7 +365,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 3 - 4</h2>
                                             </div>
-                                        </div>   <input name="file1" type="file"  class="dropify" data-height="100" required />
+                                        </div>   <input name="file1" type="file"  class="dropify"  data-height="100" required />
                                     </div> <input type="button" name="next" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                                 </fieldset>
                                 <fieldset>
@@ -403,6 +408,7 @@
                         
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            @foreach($soon as $expSoon)
                             <div class="row py-2 px-2 my-4 border_radius">
                                 <div class="col-md-4 col-12 mt-3 ">
                                     {{-- <div class="">
@@ -412,14 +418,14 @@
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
                                           <div class="carousel-item active">
+                                            <img src="{{asset('uploads/'.$expSoon['document'])}}" class="d-block w-100" alt="...">
+                                          </div>
+                                          <!-- <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                                           </div>
                                           <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
-                                          <div class="carousel-item">
-                                            <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
+                                          </div> -->
                                         </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -434,81 +440,36 @@
                                 </div>
                                 <div class="col-md-8 col-12 mt-3 p-md-5 d-flex align-items-center justify-content-around">
 
-
+                               
                                     <div class="p-2">
-                                        <h3>Pediatric Life Support</h3>
-                                        <h3 class="mt-2">American Red Cross</h3>
+                                    <h1>
+  <span href="" class="typewrite text-danger bold shadow shadow-lg" data-period="2000" data-type='[ "Expriring Soon", "Expriring Soon", "Expriring Soon", "Expriring Soon" ]'>
+    <span class="wrap"></span>
+                                    </span>
+</h1>
+                                    <!-- <marquee  width="100%" direction="left" height="100px">Expiring Soon</marquee> -->
+                                        <h3>{{$expSoon["name"]}}</h3>
+                                        <!-- <h3 class="mt-2">American Red Cross</h3> -->
                                         <p class="mt-2 text-dark">
-                                            Demo-Fonts are meant for testing or demonstration purposes. They allow you to use the fonts for testing exclusively
+                                            {{$expSoon["detail"]}}
                                         </p>
-                                        <p class="mt-2 text-dark p_bold">Expires 06/30/2023</p>
+                                        <p class="mt-2 text-dark p_bold"><span class="text-danger bold">Expiry:</span> {{$expSoon["expiry"]}}</p>
 
                                     </div>
-                                        <div>
+                                        <!-- <div>
                                             <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fas fa-edit"></i> Edit</button><br>
                                             <button class="btn btn-warning mt-4 w-100 text-light" data-bs-toggle="modal" data-bs-target="#exampleModal3"><i class="fas fa-eye"></i> View</button><br>
 
                                             <button class="btn btn-danger mt-4 w-100 delete"><i class="fas fa-trash"></i> Delete</button>
 
-                                        </div>
-
-
-
-                                </div>
-                            </div>
-                            <div class="row py-2 px-2 my-4 border_radius">
-                                <div class="col-md-4 col-12 mt-3 ">
-                                    {{-- <div class="">
-                                        <img src="{{asset('img/PA-Medical-License.jpg')}}" class="img-fluid" alt="">
-
-                                    </div> --}}
-                                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-                                          <div class="carousel-item active">
-                                            <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
-                                          <div class="carousel-item">
-                                            <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
-                                          <div class="carousel-item">
-                                            <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
-                                        </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                          <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                          <span class="visually-hidden">Next</span>
-                                        </button>
-                                      </div>
-
-                                </div>
-                                <div class="col-md-8 col-12 mt-3 p-md-5 d-flex align-items-center justify-content-around">
-
-
-                                    <div class="p-2">
-                                        <h3>Pediatric Life Support</h3>
-                                        <h3 class="mt-2">American Red Cross</h3>
-                                        <p class="mt-2 text-dark">
-                                            Demo-Fonts are meant for testing or demonstration purposes. They allow you to use the fonts for testing exclusively
-                                        </p>
-                                        <p class="mt-2 text-dark p_bold">Expires 06/30/2023</p>
-
-                                    </div>
-                                        <div>
-                                            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fas fa-edit"></i> Edit</button><br>
-                                            <button class="btn btn-warning mt-4 w-100 text-light" data-bs-toggle="modal" data-bs-target="#exampleModal3"><i class="fas fa-eye"></i> View</button><br>
-
-                                            <button class="btn btn-danger mt-4 w-100 delete"><i class="fas fa-trash"></i> Delete</button>
-
-                                        </div>
-
+                                        </div> -->
+                                        
 
 
                                 </div>
                             </div>
+                            @endforeach
+                            
                         </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
@@ -524,12 +485,12 @@
                                           <div class="carousel-item active">
                                             <img src="{{asset('uploads/'.$output->document)}}" class="d-block w-100" alt="...">
                                           </div>
-                                          <div class="carousel-item">
+                                          <!-- <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                                           </div>
                                           <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
-                                          </div>
+                                          </div> -->
                                         </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -551,7 +512,7 @@
                                         <p class="mt-2 text-dark">
                                             {{$output->detail}}
                                         </p>
-                                        <p class="mt-2 text-dark p_bold">Expired {{$output->expiry}}</p>
+                                        <p class="mt-2 text-dark p_bold"><span class="text-danger">Expired: </span> {{$output->expiry}}</p>
 
                                     </div>
                                         <div>
@@ -881,7 +842,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12 text-center p-0 mt-3 mb-2">
                         <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                            <h2 id="heading">Add New License/Certificate</h2>
+                            <h2 id="heading">Add New License/Certificate </h2>
                             <p>Fill all form field to go to next step</p>
                             <form id="msform" method="post" action="{{ route('license') }}" enctype="multipart/form-data">
                                 @csrf
@@ -933,7 +894,7 @@
                                             <div class="col-5">
                                                 <h2 class="steps">Step 3 - 4</h2>
                                             </div>
-                                        </div>   <input name="file" id="license_file" type="file"  class="dropify" data-height="100"  />
+                                        </div>   <input name="file[]" id="license_file" type="file" multiple   class="" data-height="100"  />
                                     </div> <input type="submit" id="finish" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                                 </fieldset>
                                 <fieldset>
@@ -952,7 +913,7 @@
                                         </div> <br><br>
                                         <div class="row justify-content-center">
                                             <div class="col-7 text-center">
-                                                <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                                <h5 class="purple-text text-center">You Have Successfully added license</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -1086,5 +1047,65 @@
         //     $("#msform").submit();
         // })
     })
+
+    //made by vipul mirajkar thevipulm.appspot.com
+var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
 </script>
+
+
 @endsection

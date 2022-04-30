@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -24,24 +25,26 @@ Route::get('/', [LicenseController::class, "index"]);
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 
 Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function () {
+    Route::get('/edit-user', [AdminController::class, "editUser"]);
     Route::get('/index', function () {
         return view('Admin.index');
     });
-
-    Route::get('/users', function () {
-        $users=User::where('role','user')->get();
-        return view('Admin.users',compact('users'));
-    });
-
+    
+    Route::post("/update-user", [UserController::class, "updateUser"])->name("updateUserInfo");
+    Route::get("/delete-user", [UserController::class, "deleteUser"])->name("deleteUser");
+    Route::get("/users", [UserController::class, "listing"]);
+    
     Route::get('/edituser', [UserController::class, "editUser"])->name("editUser");
     
     Route::get('/assets', function () {
-        return view('Admin.assets');
+        $license = User::where("role","user")->get();
+        // dd($license);
+        
+        return view('Admin.assets', compact('license'));
     });
 
-    Route::get('/user_assets', function () {
-        return view('Admin.user_assets');
-    });
+    Route::get('/user_assets/{id}', [UserController::class, "userAssets"]);
+
 
 
 });
