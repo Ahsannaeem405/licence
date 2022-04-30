@@ -13,6 +13,10 @@ footer {
     border-radius: 0px !important;
 }
 
+.visibility_none {
+    visibility: hidden !important;
+}
+
 .nav-link {
     padding: 18px !important;
     font-weight: bold;
