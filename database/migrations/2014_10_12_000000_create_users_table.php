@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_image')->nullable();
             $table->string('billing_address')->nullable();
             $table->string('billing_info')->nullable();
+            $table->string('user_role')->default('client');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

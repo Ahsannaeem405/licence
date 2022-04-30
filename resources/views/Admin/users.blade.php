@@ -13,6 +13,9 @@
                         
                         <div class="row">
                             <div class="col-sm-12">
+                                @if(Session::has("success"))
+                                <div class="alert alert-success shadow shadow-lg"> {{Session::get("success")}} </div>
+                                @endif
                                 <!-- <div>Helo</div> -->
                                 <table class="table table-bordered dataTable" id="myTable" width="100%" cellspacing="0"
                                     role="grid" aria-describedby="dataTable_info" style="width: 100%;">
@@ -32,6 +35,10 @@
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
                                                 style="width: 129px;">Phone #</th>
+
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Office: activate to sort column ascending"
+                                                style="width: 129px;">Role</th>
 
 
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -63,6 +70,37 @@
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->phone}}</td>
+                                            <td> 
+                                            <div class="dropdown show">
+  <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        @php 
+                                                        $urole = strtoupper($user->user_role)
+                                                       
+                                                        @endphp
+                                                        {{$urole}}
+  </a>
+
+                                         <div class="dropdown-menu shadow shadow-lg" aria-labelledby="dropdownMenuLink">
+                                                    @if(Auth::user()->user_role == "super_admin")
+                                                    <a class="dropdown-item" href="{{ route('updateRole', ['role' => 'admin', 'id' => $user->id]) }}"> Admin </a>
+                                                    @endif
+
+                                                    @if(Auth::user()->user_role == "super_admin" ||Auth::user()->user_role == "admin")
+                                                    <a class="dropdown-item" href="{{ route('updateRole', ['role' => 'csr', 'id' => $user->id]) }}"> CSR </a>
+                                                    @endif
+
+                                                    @if(Auth::user()->user_role == "super_admin" ||Auth::user()->user_role == "admin" ||Auth::user()->user_role == "csr")
+                                                    <a class="dropdown-item" href="{{ route('updateRole', ['role' => 'client', 'id' => $user->id]) }}"> Client </a>
+                                                    @endif
+                                                  
+                                                      
+                                                       
+                                               
+   
+                                             </div>
+                                        </div>
+                                              
+                                            </td>
 
 
                                             <td>

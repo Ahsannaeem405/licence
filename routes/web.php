@@ -30,6 +30,7 @@ Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function ()
         return view('Admin.index');
     });
     
+    Route::get("/update-role", [UserController::class, "updateRole"])->name("updateRole");
     Route::post("/update-user", [UserController::class, "updateUser"])->name("updateUserInfo");
     Route::get("/delete-user", [UserController::class, "deleteUser"])->name("deleteUser");
     Route::get("/users", [UserController::class, "listing"]);
