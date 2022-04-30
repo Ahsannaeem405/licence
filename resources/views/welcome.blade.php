@@ -160,19 +160,22 @@
 
                     <div id="carouselExampleControls4" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            @php
+                        @php
                                             $docs = json_decode($show->document)
                                             @endphp
-                            @foreach($docs as $imgs)
-                            <div class="carousel-item @if ($x==1)
-                                active
-                            @endif">
-                                <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
-                            </div>
-                            @php
-                                $x++;
-                            @endphp
-                            @endforeach
+                                            @php
+                                                $x=1;
+                                            @endphp
+                                            @foreach($docs as $imgs)
+                                          <div class="carousel-item @if ($x==1)
+                                              active
+                                          @endif">
+                                            <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
+                                          </div>
+                                          @php
+                                              $x++;
+                                          @endphp
+                                          @endforeach
                           {{-- <div class="carousel-item active">
                             <img src="{{asset('uploads/'.$show->document)}}" class="d-block w-100" alt="...">
                           </div> --}}
@@ -449,9 +452,25 @@
                                     </div> --}}
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
-                                          <div class="carousel-item active">
-                                            <img src="{{asset('uploads/'.$expSoon['document'])}}" class="d-block w-100" alt="...">
+                                        @php
+                                            $docs = json_decode($show->document)
+                                            @endphp
+                                            @php
+                                                $x=1;
+                                            @endphp
+                                            @foreach($docs as $imgs)
+                                          <div class="carousel-item @if ($x==1)
+                                              active
+                                          @endif">
+                                            <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
                                           </div>
+                                          @php
+                                              $x++;
+                                          @endphp
+                                          @endforeach
+                                          <!-- <div class="carousel-item active">
+                                            <img src="{{asset('uploads/'.$expSoon['document'])}}" class="d-block w-100" alt="...">
+                                          </div> -->
                                           <!-- <div class="carousel-item">
                                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                                           </div>
@@ -514,14 +533,22 @@
                                     </div> --}}
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
-                                            @php
-                                                $x=0;
+                                        @php
+                                            $docs = json_decode($show->document)
                                             @endphp
-                                            @foreach($output->document as $imgs)
-                                            <div class="carousel-item ">
-                                              <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
-                                            </div>
-                                            @endforeach
+                                            @php
+                                                $x=1;
+                                            @endphp
+                                            @foreach($docs as $imgs)
+                                          <div class="carousel-item @if ($x==1)
+                                              active
+                                          @endif">
+                                            <img src="{{asset('uploadFile/'.$imgs)}}" class="d-block w-100" alt="...">
+                                          </div>
+                                          @php
+                                              $x++;
+                                          @endphp
+                                          @endforeach
                                           {{-- <div class="carousel-item active">
                                             <img src="{{asset('uploads/'.$output->document)}}" class="d-block w-100" alt="...">
                                           </div> --}}
