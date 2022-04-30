@@ -38,7 +38,18 @@ Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function ()
     Route::get('/edituser', [UserController::class, "editUser"])->name("editUser");
     
     Route::get('/assets', function () {
-        $license = User::where("role","user")->get();
+        if(Auth::user()->user_role == "super_admin"){
+            $license=User::where('user_role', "!=", 'super_admin')->get();
+            }
+    
+            if(Auth::user()->user_role == "admin"){
+                $license=User::where('user_role', "=", 'csr')->orwhere("user_role","=", "client")->get();
+            }
+    
+            if(Auth::user()->user_role == "csr"){
+                $license=User::where('user_role', "=", 'client')->get();
+            }
+        // $license = User::where("role","user")->get();
         // dd($license);
         
         return view('Admin.assets', compact('license'));

@@ -19,7 +19,7 @@
                                             <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
                                                 rowspan="1" colspan="1" aria-sort="ascending"
                                                 aria-label="Name: activate to sort column descending" style="width: 179px;">
-                                                No</th>
+                                                #</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
                                                 style="width: 274px;">Name</th>
@@ -28,7 +28,7 @@
                                                 style="width: 129px;">Email</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
-                                                style="width: 59px;">Age</th>
+                                                style="width: 59px;"></th>
 
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Salary: activate to sort column ascending"
@@ -52,15 +52,11 @@
                                             <td> {{$show->name}} </td>
                                             <td>{{$show->email}}</td>
                                             <td>{{$show->phone}}</td>
-
                                             <td>
-                                               
-                                                <a href="{{url('admin/user_assets', ['id' => $show->id])}}" class="btn btn-primary">View Assets</a>
-
-
-
-                                                {{-- <button class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
+                                            <a href="{{url('admin/user_assets', ['id' => $show->id])}}" class="btn btn-primary">View Assets</a>
                                             </td>
+
+                                            
                                         </tr>
                                         @endforeach
                                         <!-- <tr class="even">
