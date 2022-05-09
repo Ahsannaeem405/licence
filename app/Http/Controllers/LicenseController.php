@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\License;
+use App\Models\Setting;
 use Session;
 use DateTime;
 
@@ -71,6 +72,8 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
                 $emptyArray[] = $li;
             }
             }
+
+            
             // dd($emptyArray);
             // print_r($license); exit;
             $return = [

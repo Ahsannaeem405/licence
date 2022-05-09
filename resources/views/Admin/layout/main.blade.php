@@ -46,10 +46,10 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{url('http://127.0.0.1:8000/admin/index')}}">
+                <a class="nav-link" href="{{url('admin/index')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-            </li>
+            </l
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -136,6 +136,13 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Assets</span></a>
             </li>
+            @if(Auth::user()->user_role == "super_admin")
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('admin/settings')}}">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                    <span>Settings</span></a>
+            </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -347,11 +354,11 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a> -->
+                                </a>-->
+                                <a class="dropdown-item" href="{{ url('admin/profile') }}">
+                                    <i class="fas fa-user mr-2 text-gray-400"></i>
+                                    Profile
+                                </a> 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -16,6 +16,36 @@ use Session;
 class UserController extends Controller
 {
 
+    public function editUserProfile(){
+        return view('edituser');
+    }
+
+    public function updateUserInfo(Request $request){
+        // return $request;
+          // return $request;
+          if(!empty($request->file)){
+            $extenssion = $request->file->getClientOriginalExtension();
+            $imageName = "img-".rand() . "-" . Carbon::now()->format("Ymd") . "." . $extenssion;
+            $path = public_path('profile_image');
+            $request->file->move($path, $imageName);
+        }else{
+            $image = User::where("id",$request->id)->first();
+            $imageName = $image->profile;
+        }
+
+        User::where("id", $request->id)->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone" => $request->mobile,
+            "billing_address" => $request->address,
+            "billing_info" => $request->info,
+            "profile_image" => $imageName
+        ]);
+
+        Session::flash("success", "Prfile updated successfully!");
+        return back();
+    }
+
    public function userAssets(Request $request){
     $id =  $request->route('id');
     $allLicense = License::where("user_id", $id)->get();

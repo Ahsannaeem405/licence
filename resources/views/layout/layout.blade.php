@@ -14,6 +14,9 @@
     <title>License</title>
   </head>
   <body>
+    @if(Auth::user()->name =="")
+    <div class="alert alert-danger">Your profile is incomplete, Complete your profile before proceeding to order</div>
+    @endif
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
@@ -53,11 +56,18 @@
             <form class="d-none d-lg-block">
                 <div class="dropdown">
                     <!-- <button class="btn btn_profile" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                      @if(isset(Auth::user()->profile_image))
+                    <img src="{{asset('profile_image/'.Auth::user()->profile_image)}}" class="rounded-circle" width="50" alt=""  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      @else
                     <img src="{{asset('img/img_avatar.png')}}" class="rounded-circle" width="50" alt=""  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    @endif
+                    {{Auth::user()->name}}
                     <!-- </button> -->
                     <div class="dropdown-menu text-center drop " aria-labelledby="dropdownMenuButton">
                         {{-- <a class="dropdown-item" href="#">Profile</a> --}}
                         @if (Auth::check())
+                        <a class="dropdown-item" href="{{ url('/') }}">Home</a>
+                        <a class="dropdown-item" href="{{ url('/userProfile') }}">Profile</a>                        
                         <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
                         @else
                         <a class="dropdown-item" href="{{url('/login')}}">Login</a>

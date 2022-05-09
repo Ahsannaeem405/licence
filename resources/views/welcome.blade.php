@@ -21,11 +21,9 @@
                    </div> --}}
                 </div>
                     @if(Session::has("success"))
-                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                 <div class="alert alert-success text-center" role="alert">
                   <strong>Successful!</strong> {{Session::get("success")}}
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                 
                 </div>
                     @endif
 
@@ -59,6 +57,7 @@
 
             </div>
             {{-- nav tabs --}}
+            
             <div class="row">
                 <div class="col-12 pt-3 text-center">
                     <h3 class="d-md-none d-block">Certificate/License</h3>
@@ -69,7 +68,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link border-end border_radius0" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-clock text-warning"></i> <span class="d-md-inline d-none"> Expiring Soon</span> 
-                          <span class="badge bg-danger rounded-circle d-md-inline d-none">  </span></button>
+                           </button>
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link border_radius0" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-times-circle text-danger"></i> <span class="d-md-inline d-none"> Expired Certification </span><span class="badge bg-danger rounded-circle d-md-inline d-none">{{ $expired->count() }}</span></button>
@@ -78,7 +77,9 @@
                       <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
+                        
                         @foreach($license as $show)
+                        
                             <div class="row py-2 px-2 my-4 border_radius">
                                 <div class="col-md-4 col-12 mt-3 ">
                                    
@@ -530,7 +531,7 @@
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
                                         @php
-                                            $docs = json_decode($show->document)
+                                            $docs = json_decode($output->document)
                                             @endphp
                                             @php
                                                 $x=1;
@@ -752,13 +753,16 @@
                                                 <h2 class="steps">Step 4 - 4</h2>
                                             </div>
                                         </div> <br><br>
+                                                <img src="data:image/png;base64,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" alt="">
+
                                         <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
                                         <div class="row justify-content-center">
                                             {{-- <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div> --}}
                                         </div> <br><br>
                                         <div class="row justify-content-center">
                                             <div class="col-7 text-center">
-                                                <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                                <img src="data:image/png;base64,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" alt="">
+                                                <h5 class="purple-text text-center">You Have Successfully added your license</h5>
                                             </div>
                                         </div>
                                     </div>

@@ -45,17 +45,7 @@
                                     </div>
                                     <form class="user" method="POST" action="{{ route('register') }}">
                                         @csrf
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-user   @error('name') is-invalid @enderror"
-                                            id="name" aria-describedby="emailHelp" name="name"
-                                                placeholder="Enter Name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                                @error('name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user  @error('email') is-invalid @enderror"
                                                 id="exampleInputEmail" aria-describedby="emailHelp" name="email"

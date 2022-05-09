@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,13 @@ Route::get('/', [LicenseController::class, "index"]);
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 
 Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function () {
+    Route::get("/settings", function(){
+        return view("settings");
+    });
+
+    Route::get("/profile", function(){
+        return view("Admin.profile");
+    });
     Route::get('/edit-user', [AdminController::class, "editUser"]);
     Route::get('/index', function () {
         $allCountUsers = User::all()->count();
@@ -36,7 +44,7 @@ Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function ()
         // return $allCountUsers;
         return view('Admin.index', $return);
     });
-    
+Route::post("site_logo", [SettingController::class, 'siteLogo']);
     Route::get("/update-role", [UserController::class, "updateRole"])->name("updateRole");
     Route::post("/update-user", [UserController::class, "updateUser"])->name("updateUserInfo");
     Route::get("/delete-user", [UserController::class, "deleteUser"])->name("deleteUser");
@@ -68,6 +76,8 @@ Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function ()
 
 });
 
+
+
 Route::post("/license-save", [LicenseController::class, "LicenseSave"])->name("license");
 Route::get('license-delete', [LicenseController::class, "delLicense"])->name("license-del");
 Route::post('license-update', [LicenseController::class, "updateLicense"])->name("update");
@@ -76,5 +86,11 @@ Route::prefix("/user")->middleware(['SessionCheck', 'auth'])->group(function(){
 });
 
 Auth::routes();
+
+
+Route::get('/userProfile', function(){
+    return view("userProfile");
+});
+Route::post("/update-user", [UserController::class, "updateUserInfo"])->name("userInfo");
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
