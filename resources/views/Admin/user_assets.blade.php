@@ -49,8 +49,17 @@
                                             <td class="sorting_1">{{ $loop->iteration }}</td>
                                             <td>{{$output->name}}</td>
                                             <td> 
+                                              
                                                 <a href="{{ asset('uploads/'.$output->document) }}">
-                                                <img src="{{asset('uploads/'.$output->document)}}" width="100" class="rounded" alt="">
+                                                  @php
+                                                  $asset = json_decode($output->document)
+                                                  @endphp
+
+                                                  @foreach($asset as $licensImages)
+                                                  @if($loop->iteration == 1)
+                                                <img src="{{asset('uploadFile/'.$licensImages)}}" width="100" class="rounded" alt="">
+                                                  @endif
+                                                @endforeach
                                                 </a>
                                             </td>
 
@@ -77,8 +86,16 @@
                 <h4>License Detail</h4>
               </div>
               <div class="col-12 text-center">
-                    <img src="{{asset('uploads/'.$output->document)}}" width="60%" class="rounded" alt="">
-                    <a href="{{asset('uploads/'.$output->document)}}" class="float-right" download>Download</a>
+                @php 
+                $userAssets = json_decode($output->document)
+                @endphp
+
+                @foreach($userAssets as $imgs)
+                <a href="{{asset('uploadFile/'.$imgs)}}" class="" target="_tab">
+                    <img src="{{asset('uploadFile/'.$imgs)}}" width="60%" class="rounded mt-3" alt="">
+                </a>
+                    <a href="{{asset('uploadFile/'.$imgs)}}" class="float-right" download>Download</a>
+                @endforeach
               </div>
               <div class="col-md-6 col-12 pt-2">
                   <label for=""><b>Name</b></label>

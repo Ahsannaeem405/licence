@@ -27,7 +27,14 @@ Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 Route::prefix('/admin')->middleware(['SessionCheck', 'auth'])->group(function () {
     Route::get('/edit-user', [AdminController::class, "editUser"]);
     Route::get('/index', function () {
-        return view('Admin.index');
+        $allCountUsers = User::all()->count();
+
+        $return = [
+            "allUsers" => $allCountUsers,
+        
+        ];
+        // return $allCountUsers;
+        return view('Admin.index', $return);
     });
     
     Route::get("/update-role", [UserController::class, "updateRole"])->name("updateRole");

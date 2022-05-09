@@ -68,7 +68,8 @@
                           <span class="badge bg-danger rounded-circle d-md-inline d-none"> {{$license->count()}} </span></button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link border-end border_radius0" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-clock text-warning"></i> <span class="d-md-inline d-none"> Expiring Soon</span> <span class="badge bg-danger rounded-circle d-md-inline d-none">5</span></button>
+                          <button class="nav-link border-end border_radius0" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-clock text-warning"></i> <span class="d-md-inline d-none"> Expiring Soon</span> 
+                          <span class="badge bg-danger rounded-circle d-md-inline d-none">  </span></button>
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link border_radius0" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-times-circle text-danger"></i> <span class="d-md-inline d-none"> Expired Certification </span><span class="badge bg-danger rounded-circle d-md-inline d-none">{{ $expired->count() }}</span></button>
@@ -80,10 +81,7 @@
                         @foreach($license as $show)
                             <div class="row py-2 px-2 my-4 border_radius">
                                 <div class="col-md-4 col-12 mt-3 ">
-                                    {{-- <div class="">
-                                        <img src="{{asset('i')}}" class="img-fluid" alt="">
-
-                                    </div> --}}
+                                   
                                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
                                             @php
@@ -176,9 +174,7 @@
                                               $x++;
                                           @endphp
                                           @endforeach
-                          {{-- <div class="carousel-item active">
-                            <img src="{{asset('uploads/'.$show->document)}}" class="d-block w-100" alt="...">
-                          </div> --}}
+                         
                           <!-- <div class="carousel-item">
                             <img src="{{asset('img/PA-Medical-License.jpg')}}" class="d-block w-100" alt="...">
                           </div>

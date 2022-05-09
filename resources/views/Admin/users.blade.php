@@ -32,13 +32,17 @@
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
                                                 style="width: 129px;">Email</th>
 
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 129px;">Phone #</th>
+                                                style="width: 129px;">Phone #</th> -->
 
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
                                                 style="width: 129px;">Role</th>
+
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Office: activate to sort column ascending"
+                                                style="width: 129px;">Assets</th> -->
 
 
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
@@ -69,7 +73,7 @@
                                             <td class="sorting_1">{{$i}}</td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
-                                            <td>{{$user->phone}}</td>
+                                            <!-- <td>{{$user->phone}}</td> -->
                                             <td> 
                                             <div class="dropdown show">
   <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,6 +105,8 @@
                                         </div>
                                               
                                             </td>
+
+                                            <!-- <td><a href="" class=""> View</a></td> -->
 
 
                                             <td>

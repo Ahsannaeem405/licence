@@ -9,6 +9,7 @@ use App\Models\UserRole;
 use Illuminate\Support\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use League\CommonMark\Block\Element\Document;
 use Session;
 
 
@@ -18,7 +19,9 @@ class UserController extends Controller
    public function userAssets(Request $request){
     $id =  $request->route('id');
     $allLicense = License::where("user_id", $id)->get();
+    // return $allLicense;
     $userInfo = User::where("id",$id)->first();
+    // return $userInfo;
     $return = [
         "allLicense" => $allLicense,
         "userInfo" => $userInfo
