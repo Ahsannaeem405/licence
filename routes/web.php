@@ -93,4 +93,7 @@ Route::get('/userProfile', function(){
 });
 Route::post("/update-user", [UserController::class, "updateUserInfo"])->name("userInfo");
 
+Route::post("/sort", [LicenseController::class, 'index'])->name("sortBy");
+Route::post("/filter", [LicenseController::class, 'index'])->name("filter");
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

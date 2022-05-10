@@ -43,7 +43,9 @@ class LicenseController extends Controller
         return back();
     }
 
-    public function index(){
+    public function index(Request $request){
+
+        // return $request;
         if(Auth::check()){
             $today = Carbon::today();
             $aaj =  $today->format("Y-m-d");
@@ -52,10 +54,23 @@ $expired =License::whereDate('expiry', '<', $today->format('Y-m-d'))->orderBy("i
 ->get();
 
     //  echo $event; exit;
-
-            $license = License::whereDate('expiry', '>', $today->format('Y-m-d'))->orderBy("id","desc")
+            if($request->sorting != ''){
+            $license = License::whereDate('expiry', '>', $today->format('Y-m-d'))->orderBy("id",$request->sorting)
             ->where("user_id", Auth::user()->id)
             ->get();
+        }else{
+            if($request->filterData == ''){
+                $license = License::whereDate('expiry', '>', $today->format('Y-m-d'))
+                ->where("user_id", Auth::user()->id)
+                ->get();
+            }else{
+                $license = License::whereDate('expiry', '>', $today->format('Y-m-d'))
+                ->where("user_id", Auth::user()->id)
+                ->where("name", "LIKE", "%".$request->filterData."%")
+                ->get();
+            }
+           
+        }
 
             // return $license;
             $emptyArray = [];

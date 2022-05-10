@@ -77,7 +77,30 @@
                       <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
+                        @if(!$license->count())
+                       <div class="image-fluid">
+                          <img src="{{ asset('empty.png') }}" alt="">
+                       </div>
+                       @endif
+                        <div class="d-flex">
+                        <form align='center' id="sortForm" method="POST" action="{{ route('sortBy') }}" class="form w-20 text-center m-auto" style="width: 300px;">
+                        @csrf
+                        <!-- <label for="sorting">Sort by</label> -->
+                            <select id="sorting" name="sorting" class="form-select" aria-label="Default select example">
+                                <option value="" selected>Sort by.....</option>
+                                <option value="asc">Ascending </option>
+                                <option value="desc">Descending  </option>
+                            </select>
+                        </form>
+
+                        <form action="{{ route('filter') }}" method="POST" class="m-auto d-flex"   style="width: 300px;">
+                        @csrf
+                            <input type="text" class="form-control" name="filterData" placeholder="Search...">
+                            <input type="submit" class="btn btn-primary"  value="Search">
+                        </form>
+                        </div>
                         
+
                         @foreach($license as $show)
                         
                             <div class="row py-2 px-2 my-4 border_radius">
@@ -134,7 +157,7 @@
                                             <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#editModal{{$show->id}}"><i class="fas fa-edit"></i> Edit</button><br>
                                             <button class="btn btn-success mt-4 w-100 text-light" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->iteration}}"><i class="fas fa-eye"></i> View</button><br>
 
-                                            <a href="{{ route('license-del', ['id' => $show->id]) }}" id="delete" class="btn btn-danger mt-4 w-100"><i class="fas fa-trash"></i> Delete</a>
+                                            <a href="{{ route('license-del', ['id' => $show->id]) }}" id="delete" class="btn btn-danger mt-4 w-100 confirmDel"><i class="fas fa-trash"></i> Delete</a>
 
                                         </div>
 
@@ -142,6 +165,10 @@
 
                                 </div>
                             </div>
+
+                           
+
+                            
 
 
                             <!-- View Model -->
@@ -315,7 +342,7 @@
                                         </div> <br><br>
                                         <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
                                         <div class="row justify-content-center">
-                                            {{-- <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div> --}}
+                                            <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div> 
                                         </div> <br><br>
                                         <div class="row justify-content-center">
                                             <div class="col-7 text-center">
@@ -440,6 +467,12 @@
 
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                        @if(empty($soon))
+                       <div class="image-fluid">
+                          <img src="{{ asset('empty.png') }}" alt="">
+                       </div>
+                       @endif
                             @foreach($soon as $expSoon)
                             <div class="row py-2 px-2 my-4 border_radius">
                                 <div class="col-md-4 col-12 mt-3 ">
@@ -520,6 +553,11 @@
 
                         </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        @if(!$expired->count())
+                       <div class="image-fluid">
+                          <img src="{{ asset('empty.png') }}" alt="">
+                       </div>
+                       @endif
 
                         @foreach($expired as $output)
                             <div class="row py-2 px-2 my-4 border_radius">
@@ -586,7 +624,7 @@
                                             <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#expireEditModal{{$output->id}}"><i class="fas fa-edit"></i> Edit</button><br>
                                             <button class="btn btn-warning mt-4 w-100 text-light" data-bs-toggle="modal" data-bs-target="#expireModal{{$loop->iteration}}"><i class="fas fa-eye"></i> View</button><br>
 
-                                            <a href="{{ route('license-del', ['id' => $output->id]) }}" id="delete" class="btn btn-danger mt-4 w-100"><i class="fas fa-trash"></i> Delete</a>
+                                            <a href="{{ route('license-del', ['id' => $output->id]) }}" id="delete" class="btn btn-danger mt-4 w-100 confirmDel"><i class="fas fa-trash"></i> Delete</a>
 
                                         </div>
 
@@ -1041,6 +1079,8 @@
                             <h2 id="heading">Edit License/Certificate</h2>
                             <p>Fill all form field to go to next step</p>
                             <form id="msform">
+                            <!-- <form id=""> -->
+
                                 <!-- progressbar -->
                                 <ul id="progressbar">
                                     <li class="active" id="account"><strong>License</strong></li>
@@ -1127,17 +1167,31 @@
   <!-- Modal -->
 
 
-
+  
 
 @endsection
 
 @section("custom-js")
 <script>
     $(document).ready(function(){
+
+        $("#sorting").on("change", function(){
+            // alert("helo");
+            $("#sortForm").submit();
+        });
+
+        $(".confirmDel").on("click", function(){
+            return confirm("If you want to delete press OK");
+        });
+
+
         $(document).on('click', '.del', function() {
             $(this).closest( ".drop_div" ).remove();
 
         $(this).closest('#removeTr').remove();
+
+
+       
     });
 //         $( ".del" ).click(function() {
 //   alert( "Handler for .click() called." );

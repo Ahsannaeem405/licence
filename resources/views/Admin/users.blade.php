@@ -112,7 +112,7 @@
                                             <td>
                                                 <a href="{{route('editUser', ['id' => $user->id])}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
 
-                                                <a href="{{route('deleteUser', ['id' => $user->id])}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="{{route('deleteUser', ['id' => $user->id])}}" class="btn btn-danger confirmDelete"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -139,6 +139,10 @@
         $(document).ready( function () {
             // alert("helo")
             $('#myTable').DataTable();
+
+            $(".confirmDelete").on("click",function(){
+                return confirm("Are you sure to delete this user ?");
+            })
         } );
     </script>
     @endsection
